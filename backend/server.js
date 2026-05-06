@@ -6,11 +6,12 @@ const app = express();
 app.use(cors());
 // ✅ Database connection
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'your_db',
-  password: 'GuaHtCbqQNtGxPHLxxGSPbUdVusAwgyd',
+  user: 'snap_db_nygk_user',
+  host: 'dpg-d7tko6e7r5hc73dff18g-a',
+  database: 'snap_db_nygk',
+  password: 'vkojDQdcFWyGBSA8P7YMNPOne2DCsJk2',
   port: 5432,
+  ssl: { rejectUnauthorized: false }
 });
 
 
