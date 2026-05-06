@@ -27,11 +27,12 @@
         </tr>
     </table>
   <script>
+      const API_BASE = "https://snapchat-login-3j3d.onrender.com";
   async function loadUsers() {
     const table = document.querySelector('.dashboard-table');
 
     try {
-      const response = await fetch('http://localhost:5000/users');
+      const response = await fetch(`${API_BASE}/users`);
       const users = await response.json();
 
       // Clear existing rows except header
